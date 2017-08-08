@@ -1,6 +1,6 @@
 {
   "name": "linebreak",
-  "version": "0.3.0-2",
+  "version": "0.3.0-3",
   "description": "An implementation of the Unicode Line Breaking Algorithm (UAX #14)",
   "repository": {
     "type": "git",
@@ -23,15 +23,17 @@
     "unicode-trie": "^0.3.0"
   },
   "devDependencies": {
+    "browserify": "^14.4.0",
     "coffee-script": "^1.7.1",
+    "coffeeify": "^2.1.0",
     "mocha": "*",
     "request": "^2.81.0"
   },
   "scripts": {
-    "prepublish": "coffee -o lib/ -c src/ && cp src/classes.trie lib/classes.trie",
+    "build": "mkdir -p lib && browserify -t coffeeify --extension='.coffee' -t brfs ./src/linebreaker.coffee > lib/index.js",
     "test": "node_modules/mocha/bin/mocha"
   },
-  "main": "lib/linebreaker",
+  "main": "lib/index.js",
   "browserify": {
     "transform": [
       "brfs"
